@@ -2,11 +2,11 @@ package com.hbs.capitole.domain.models;
 
 import java.util.Objects;
 
-public class Brand {
+public class PriceList {
     private final Long id;
     private final String name;
 
-    private Brand( Long id, String name ) {
+    private PriceList( Long id, String name ) {
         this.id = id;
         this.name = name;
     }
@@ -23,24 +23,24 @@ public class Brand {
         private Long id;
         private String name;
 
-        public Builder id( Long id ) {
+        public PriceList.Builder id( Long id ) {
             this.id = id;
             return this;
         }
 
-        public Builder name( String name ) {
+        public PriceList.Builder name( String name ) {
             this.name = name;
             return this;
         }
 
-        public Brand build() {
-            return new Brand( id, name );
+        public PriceList build() {
+            return new PriceList( id, name );
         }
     }
 
     @Override
     public String toString() {
-        return "Brand{" +
+        return "PriceList{" +
             "id=" + id +
             ", name='" + name + '\'' +
             '}';
@@ -51,10 +51,10 @@ public class Brand {
         if( this == o ) {
             return true;
         }
-        if( ! ( o instanceof Brand brand ) ) {
+        if( ! ( o instanceof PriceList priceList ) ) {
             return false;
         }
-        return Objects.equals( getId(), brand.getId() ) && Objects.equals( getName(), brand.getName() );
+        return Objects.equals( getId(), priceList.getId() ) && Objects.equals( getName(), priceList.getName() );
     }
 
     @Override
