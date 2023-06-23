@@ -1,6 +1,7 @@
 package com.hbs.capitole.application.dtos;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class PriceDto {
     private Long productId;
@@ -9,6 +10,9 @@ public class PriceDto {
     private String startDate;
     private String endDate;
     private BigDecimal cost;
+
+    public PriceDto() {
+    }
 
     public PriceDto( Long productId, Long brandId, String priceList, String startDate, String endDate,
         BigDecimal cost ) {
@@ -66,5 +70,38 @@ public class PriceDto {
 
     public void setCost( BigDecimal cost ) {
         this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return "PriceDto{" +
+            "productId=" + productId +
+            ", brandId=" + brandId +
+            ", priceList='" + priceList + '\'' +
+            ", startDate='" + startDate + '\'' +
+            ", endDate='" + endDate + '\'' +
+            ", cost=" + cost +
+            '}';
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        if( this == o ) {
+            return true;
+        }
+        if( ! ( o instanceof PriceDto priceDto ) ) {
+            return false;
+        }
+        return Objects.equals( getProductId(), priceDto.getProductId() ) &&
+            Objects.equals( getBrandId(), priceDto.getBrandId() ) &&
+            Objects.equals( getPriceList(), priceDto.getPriceList() ) &&
+            Objects.equals( getStartDate(), priceDto.getStartDate() ) &&
+            Objects.equals( getEndDate(), priceDto.getEndDate() ) &&
+            Objects.equals( getCost(), priceDto.getCost() );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( getProductId(), getBrandId(), getPriceList(), getStartDate(), getEndDate(), getCost() );
     }
 }

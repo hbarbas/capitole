@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @DisplayName( "Unit tests for the Price class" )
 class PriceTest {
     @Test
-    @DisplayName( "Should return the built model" )
+    @DisplayName( "Check the build of the model" )
     void testPriceBuilder() {
         // Given
         Long expectedId = 1L;

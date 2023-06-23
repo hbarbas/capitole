@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @DisplayName( "Unit tests for the PriceList class" )
 class PriceListTest {
     @Test
-    @DisplayName( "Should return the built model" )
+    @DisplayName( "Check the build of the model" )
     void testPriceListBuilder() {
         // Given
         Long expectedId = 1L;

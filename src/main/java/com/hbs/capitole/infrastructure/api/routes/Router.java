@@ -25,7 +25,7 @@ public class Router {
     @Bean
     @RouterOperations(
         {
-            @RouterOperation( path = "/api/v1/price/brand/{productId}/product/{brandId}",
+            @RouterOperation( path = "/api/v1/price/brand/{brandId}/product/{productId}",
                 produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET,
                 beanClass = PriceHandler.class, beanMethod = "getPriceBrandProduct",
                 operation = @Operation( operationId = "getPriceBrandProduct",
@@ -53,7 +53,7 @@ public class Router {
             )
         } )
     public RouterFunction<ServerResponse> routerPrices( PriceHandler priceHandler ) {
-        return RouterFunctions.route( GET( "/api/v1/price/brand/{productId}/product/{brandId}" ),
+        return RouterFunctions.route( GET( "/api/v1/price/brand/{brandId}/product/{productId}" ),
             priceHandler :: getPriceBrandProduct );
     }
 }

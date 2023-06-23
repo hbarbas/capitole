@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class ApiErrorDto {
     private HttpStatus status;
@@ -12,6 +13,10 @@ public class ApiErrorDto {
     private String code;
     private String exceptionMessage;
     private String stackTrace;
+
+    public ApiErrorDto() {
+        this.date = OffsetDateTime.now().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
+    }
 
     public ApiErrorDto( HttpStatus status, String code, Throwable ex ) {
         this.status = status == null ? HttpStatus.INTERNAL_SERVER_ERROR : status;
@@ -67,5 +72,35 @@ public class ApiErrorDto {
 
     public void setStackFromThrowable( Throwable ex ) {
         this.stackTrace = getStackTrace( ex );
+    }
+
+    @Override
+    public String toString() {
+        return "ApiErrorDto{" +
+            "status=" + status +
+            ", date='" + date + '\'' +
+            ", code='" + code + '\'' +
+            ", exceptionMessage='" + exceptionMessage + '\'' +
+            ", stackTrace='" + stackTrace + '\'' +
+            '}';
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        if( this == o ) {
+            return true;
+        }
+        if( ! ( o instanceof ApiErrorDto that ) ) {
+            return false;
+        }
+        return getStatus() == that.getStatus() && Objects.equals( getDate(), that.getDate() ) &&
+            Objects.equals( getCode(), that.getCode() ) &&
+            Objects.equals( getExceptionMessage(), that.getExceptionMessage() ) &&
+            Objects.equals( getStackTrace(), that.getStackTrace() );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( getStatus(), getDate(), getCode(), getExceptionMessage(), getStackTrace() );
     }
 }
