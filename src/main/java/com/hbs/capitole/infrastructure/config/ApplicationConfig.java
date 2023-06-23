@@ -1,7 +1,7 @@
 package com.hbs.capitole.infrastructure.config;
 
-import com.hbs.capitole.application.mappers.PriceDtoMapper;
-import com.hbs.capitole.application.services.PriceService;
+import com.hbs.capitole.application.mappers.PriceDtoMapperImpl;
+import com.hbs.capitole.application.services.PriceServiceImpl;
 import com.hbs.capitole.application.usecases.PriceUseCasesImpl;
 import com.hbs.capitole.domain.ports.out.PriceRepository;
 import com.hbs.capitole.infrastructure.persintence.repositories.adapters.R2dbcPriceRepositoryAdapter;
@@ -13,10 +13,10 @@ import org.springframework.web.cors.reactive.CorsWebFilter;
 @Configuration
 public class ApplicationConfig {
     @Bean
-    public PriceService priceService( PriceRepository priceRepository ) {
-        return new PriceService(
+    public PriceServiceImpl priceService( PriceRepository priceRepository ) {
+        return new PriceServiceImpl(
             new PriceUseCasesImpl( priceRepository ),
-            new PriceDtoMapper() );
+            new PriceDtoMapperImpl() );
     }
 
     @Bean
