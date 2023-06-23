@@ -1,6 +1,7 @@
 package com.hbs.capitole.infrastructure.api.routes;
 
 import com.hbs.capitole.application.dtos.PriceDto;
+import com.hbs.capitole.infrastructure.api.dtos.ApiErrorDto;
 import com.hbs.capitole.infrastructure.api.handlers.PriceHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -31,7 +32,16 @@ public class Router {
                     summary = "Returns the price of a certain brand and product", tags = { "Brand" }, responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "200",
                         description = "Successful operation",
-                        content = @Content( schema = @Schema( implementation = PriceDto.class ) ) ) }, parameters = {
+                        content = @Content( schema = @Schema( implementation = PriceDto.class ) ) ),
+                    @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "400",
+                        description = "Bad Request",
+                        content = @Content( schema = @Schema( implementation = ApiErrorDto.class ) ) ),
+                    @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "404",
+                        description = "Not Found",
+                        content = @Content( schema = @Schema( implementation = ApiErrorDto.class ) ) ),
+                    @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "500",
+                        description = "Internal server error",
+                        content = @Content( schema = @Schema( implementation = ApiErrorDto.class ) ) ) }, parameters = {
                     @Parameter( required = true, in = ParameterIn.PATH, name = "productId",
                         schema = @Schema( type = "number" ) ),
                     @Parameter( required = true, in = ParameterIn.PATH, name = "brandId",
