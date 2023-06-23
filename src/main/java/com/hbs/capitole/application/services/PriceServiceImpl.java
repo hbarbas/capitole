@@ -18,6 +18,6 @@ public class PriceServiceImpl implements PriceService {
 
     public Mono<PriceDto> getPrice( Long brandId, Long productId, OffsetDateTime date ) {
         return priceUseCases.getPrice( brandId, productId, date )
-            .map( priceDtoMapper :: fromDomainModelToApplicationDto );
+            .map( priceDtoMapper :: fromDomainModel );
     }
 }
