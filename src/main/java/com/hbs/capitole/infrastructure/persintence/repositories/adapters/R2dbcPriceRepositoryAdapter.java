@@ -40,8 +40,8 @@ public class R2dbcPriceRepositoryAdapter implements PriceRepository {
     public Mono<Price> getPrice( Long brandId, Long productId, OffsetDateTime date ) {
         String dateFormat = date.format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
         log.info( "Find the price, brandId: {} productId: {} date: {} ", brandId, productId, dateFormat );
-        return r2dbcPriceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityIdDesc(
-                brandId, productId, date, date ).elementAt( 0 )
+        return r2dbcPriceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityIdDescLimit1(
+                brandId, productId, date, date )
             .flatMap( priceEntity -> Mono.zip(
                 Mono.just( priceEntity ),
                 r2dbcBrandRepositoryAdapter.getBrand( priceEntity.getBrandId() ),
