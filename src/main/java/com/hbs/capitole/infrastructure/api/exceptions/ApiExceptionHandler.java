@@ -1,7 +1,6 @@
-package com.hbs.capitole.infrastructure.api.handlers;
+package com.hbs.capitole.infrastructure.api.exceptions;
 
-import com.hbs.capitole.infrastructure.api.dtos.ApiErrorDto;
-import com.hbs.capitole.infrastructure.api.exceptions.ApiException;
+import com.hbs.capitole.infrastructure.api.exceptions.dtos.ApiErrorDto;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;

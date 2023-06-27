@@ -1,4 +1,4 @@
-package com.hbs.capitole.infrastructure.api.dtos;
+package com.hbs.capitole.infrastructure.api.exceptions.dtos;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;

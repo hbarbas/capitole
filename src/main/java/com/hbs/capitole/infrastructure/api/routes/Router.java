@@ -1,7 +1,7 @@
 package com.hbs.capitole.infrastructure.api.routes;
 
 import com.hbs.capitole.application.dtos.PriceDto;
-import com.hbs.capitole.infrastructure.api.dtos.ApiErrorDto;
+import com.hbs.capitole.infrastructure.api.exceptions.dtos.ApiErrorDto;
 import com.hbs.capitole.infrastructure.api.handlers.PriceHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
