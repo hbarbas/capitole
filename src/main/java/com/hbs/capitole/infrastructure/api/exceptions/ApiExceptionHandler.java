@@ -10,7 +10,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
 import reactor.core.publisher.Mono;
 
@@ -26,12 +25,11 @@ public class ApiExceptionHandler extends AbstractErrorWebExceptionHandler {
 
     @Override
     protected RouterFunction<ServerResponse> getRoutingFunction( ErrorAttributes errorAttributes ) {
-        return RouterFunctions.route( RequestPredicates.all(),
-            request -> renderErrorResponse( request, errorAttributes ) );
+        return RouterFunctions.route( RequestPredicates.all(), this :: renderErrorResponse );
     }
 
-    private Mono<ServerResponse> renderErrorResponse( final ServerRequest request, ErrorAttributes errorAttributes ) {
-        Throwable error = errorAttributes.getError( request );
+    private Mono<ServerResponse> renderErrorResponse( final ServerRequest request ) {
+        Throwable error = getError( request );
         if( error instanceof ApiException apiException ) {
             return buildApiError( apiException.getStatus(), apiException.getCode(), apiException );
         }
@@ -40,6 +38,6 @@ public class ApiExceptionHandler extends AbstractErrorWebExceptionHandler {
 
     private Mono<ServerResponse> buildApiError( HttpStatus status, String code, Throwable ex ) {
         ApiErrorDto apiErrorDto = new ApiErrorDto( status, code, ex );
-        return ServerResponse.status( apiErrorDto.getStatus() ).body( BodyInserters.fromValue( apiErrorDto ) );
+        return ServerResponse.status( apiErrorDto.getStatus() ).bodyValue( apiErrorDto );
     }
 }

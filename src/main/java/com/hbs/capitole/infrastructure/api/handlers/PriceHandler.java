@@ -48,8 +48,7 @@ public class PriceHandler {
             Long productId = Long.valueOf( productIdStr );
             OffsetDateTime priceDate = OffsetDateTime.parse( priceDateStr, DateTimeFormatter.ISO_OFFSET_DATE_TIME );
             return priceService.getPrice( brandId, productId, priceDate )
-                .switchIfEmpty( Mono.error( new ApiException( "BKE0004", "No records found", HttpStatus.NOT_FOUND ) ) )
-                .onErrorResume( Mono :: error );
+                .switchIfEmpty( Mono.error( new ApiException( "BKE0004", "No records found", HttpStatus.NOT_FOUND ) ) );
         }
         catch( NumberFormatException e ) {
             return Mono.error(
