@@ -15,8 +15,8 @@ import reactor.test.StepVerifier;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith( MockitoExtension.class )
 @DisplayName( "Unit tests for the R2dbcPriceListRepositoryAdapter class" )
@@ -40,6 +40,6 @@ class R2dbcPriceListRepositoryAdapterTest {
         StepVerifier.create( result )
             .expectNext( priceList )
             .verifyComplete();
-        verify( r2dbcPriceListRepository, times( 1 ) ).findById( anyLong() );
+        then( r2dbcPriceListRepository ).should( times( 1 ) ).findById( anyLong() );
     }
 }

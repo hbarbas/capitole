@@ -15,8 +15,8 @@ import reactor.test.StepVerifier;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith( MockitoExtension.class )
 @DisplayName( "Unit tests for the R2dbcCurrencyRepositoryAdapter class" )
@@ -41,6 +41,6 @@ class R2dbcCurrencyRepositoryAdapterTest {
         StepVerifier.create( result )
             .expectNext( currency )
             .verifyComplete();
-        verify( r2dbcCurrencyRepository, times( 1 ) ).findById( anyInt() );
+        then( r2dbcCurrencyRepository ).should( times( 1 ) ).findById( anyInt() );
     }
 }

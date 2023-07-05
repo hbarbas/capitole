@@ -17,8 +17,8 @@ import java.time.OffsetDateTime;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith( MockitoExtension.class )
 @DisplayName( "Unit tests for the R2dbcPriceRepositoryAdapter class" )
@@ -56,26 +56,23 @@ class R2dbcPriceRepositoryAdapterTest {
                 anyLong(), anyLong(), any( OffsetDateTime.class ), any( OffsetDateTime.class ) ) ).willReturn(
             Mono.just( priceEntity ) );
         given( mockBrandRepositoryAdapter.getBrand( anyLong() ) ).willReturn( Mono.just( brand ) );
-        given( mockPriceListRepositoryAdapter.getPriceList( anyLong() ) ).willReturn(
-            Mono.just( priceList ) );
+        given( mockPriceListRepositoryAdapter.getPriceList( anyLong() ) ).willReturn( Mono.just( priceList ) );
         given( mockProductRepositoryAdapter.getProduct( anyLong() ) ).willReturn( Mono.just( product ) );
-        given( mockPriorityRepositoryAdapter.getPriority( anyInt() ) ).willReturn(
-            Mono.just( priority ) );
-        given( mockCurrencyRepositoryAdapter.getCurrency( anyInt() ) ).willReturn(
-            Mono.just( currency ) );
+        given( mockPriorityRepositoryAdapter.getPriority( anyInt() ) ).willReturn( Mono.just( priority ) );
+        given( mockCurrencyRepositoryAdapter.getCurrency( anyInt() ) ).willReturn( Mono.just( currency ) );
         // When
         Mono<Price> result = repositoryAdapter.getPrice( brandId, productId, date );
         // Then
         StepVerifier.create( result )
             .expectNext( price )
             .verifyComplete();
-        verify( mockRepository, times(
-            1 ) ).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityIdDescLimit1(
-            anyLong(), anyLong(), any( OffsetDateTime.class ), any( OffsetDateTime.class ) );
-        verify( mockBrandRepositoryAdapter, times( 1 ) ).getBrand( anyLong() );
-        verify( mockPriceListRepositoryAdapter, times( 1 ) ).getPriceList( anyLong() );
-        verify( mockProductRepositoryAdapter, times( 1 ) ).getProduct( anyLong() );
-        verify( mockPriorityRepositoryAdapter, times( 1 ) ).getPriority( anyInt() );
-        verify( mockCurrencyRepositoryAdapter, times( 1 ) ).getCurrency( anyInt() );
+        then( mockRepository ).should( times( 1 ) )
+            .findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityIdDescLimit1(
+                anyLong(), anyLong(), any( OffsetDateTime.class ), any( OffsetDateTime.class ) );
+        then( mockBrandRepositoryAdapter ).should( times( 1 ) ).getBrand( anyLong() );
+        then( mockPriceListRepositoryAdapter ).should( times( 1 ) ).getPriceList( anyLong() );
+        then( mockProductRepositoryAdapter ).should( times( 1 ) ).getProduct( anyLong() );
+        then( mockPriorityRepositoryAdapter ).should( times( 1 ) ).getPriority( anyInt() );
+        then( mockCurrencyRepositoryAdapter ).should( times( 1 ) ).getCurrency( anyInt() );
     }
 }

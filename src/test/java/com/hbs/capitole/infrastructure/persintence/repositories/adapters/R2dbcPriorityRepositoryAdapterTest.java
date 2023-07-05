@@ -15,8 +15,8 @@ import reactor.test.StepVerifier;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith( MockitoExtension.class )
 @DisplayName( "Unit tests for the R2dbcPriorityRepositoryAdapter class" )
@@ -41,6 +41,6 @@ class R2dbcPriorityRepositoryAdapterTest {
         StepVerifier.create( result )
             .expectNext( priority )
             .verifyComplete();
-        verify( r2dbcPriorityRepository, times( 1 ) ).findById( anyInt() );
+        then( r2dbcPriorityRepository ).should( times( 1 ) ).findById( anyInt() );
     }
 }

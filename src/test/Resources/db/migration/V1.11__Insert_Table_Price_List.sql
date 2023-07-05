@@ -1,5 +1,0 @@
-INSERT INTO PUBLIC.PRICE_LIST (ID, NAME)
-VALUES (1, 'TARIFA1'),
-       (2, 'TARIFA2'),
-       (3, 'TARIFA3'),
-       (4, 'TARIFA4');
